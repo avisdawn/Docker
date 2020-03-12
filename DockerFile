@@ -1,0 +1,11 @@
+FROM ubuntu:latest as final
+RUN mkdir -p /home/data
+RUN mkdir -p /home/output
+ADD docking.sh /home/docking.sh
+ADD lipton.txt /home/data/lipton.txt
+ADD impeach.txt /home/data/impeach.txt
+ADD intro.txt /home/data/intro.txt
+
+FROM alpine 
+COPY --from=final /home /home
+ENTRYPOINT  ["sh" ,"/home/docking.sh"]
